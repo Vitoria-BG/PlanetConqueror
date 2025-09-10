@@ -1,6 +1,5 @@
 # Planet Conqueror
 
-**About this project:**  
 This project was created as part of my Python learning process. It is based on the **12-hour complete Python tutorial by Bro Code** on YouTube, used to study and understand **data structures, logic, and object-oriented programming (OOP)** with Python.
 
 Although the base code is similar to the tutorial, I made several modifications to make it my own:  
