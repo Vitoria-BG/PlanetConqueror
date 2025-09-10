@@ -17,7 +17,7 @@ Although the base code is similar to the tutorial, I made several modifications 
 1. Use the arrow keys to move the spaceship.  
 2. Conquer planets by moving the spaceship to their location.  
 3. Avoid crashing into the walls or the spaceship's own body.  
-4. When the game ends, click the **Restart** button to play again.
+4. When the game ends, click the Restart button to play again.
 
 **Credits:**  
 Based on the [12-hour complete Python tutorial by Bro Code (YouTube)](https://www.youtube.com/watch?v=XKHEtdqhLK8). All modifications and enhancements were made by me as part of my learning journey.
