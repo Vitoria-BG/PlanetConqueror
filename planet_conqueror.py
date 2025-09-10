@@ -2,39 +2,13 @@ from tkinter import *
 import random
 
 # Variables (constant)
-GAME_WIDTH = 750
-GAME_HEIGHT = 750
+GAME_WIDTH = 800
+GAME_HEIGHT = 800
 ITEM_SIZE = 50
 BODY_LENGTH = 3
-SPEED = 80
 SPACESHIP_COLOR = "#b1b1b1"
 PLANET_COLOR = "#0b8adf"
 BACKGROUND_COLOR = "#000000"
-
-# ----------------------------------------------------------------------------
-def restartGame():
-    global spaceship, planet, score, direction, restart_button
-
-    # reset game stats
-    score = 0
-    label.config(text="{} planets conquered!".format(score))
-    direction = "down"
-
-    # clear canvas
-    canvas.delete(ALL)
-
-    # remove restart button
-    try:
-        restart_button.destroy()
-    except:
-        pass
-
-    # recreate spaceship and planet
-    spaceship = Spaceship()
-    planet = Planet()
-
-    # restart game loop
-    turn(spaceship, planet)
 
 # ----------------------------------------------------------------------------
 class Spaceship:
@@ -98,6 +72,7 @@ def turn(spaceship, planet):
     # if head coordinates = planet coordinates -> score
     if x_pos == planet.coordinates[0] and y_pos == planet.coordinates[1]:
         global score 
+        global speed
         score += 1
 
         # update score on canvas
@@ -105,6 +80,11 @@ def turn(spaceship, planet):
         canvas.delete("planet")
         # new planet 
         planet = Planet()
+
+        # for every 4 points 
+        if score != 0 and score & 3 == 0:
+            # decrease speed but never lower than 20
+            speed = max(20, speed - 4)
 
     else:
         # remove last part of the spaceship to simulate movement
@@ -118,7 +98,7 @@ def turn(spaceship, planet):
 
     else:
         # next turn -> delay SPEED
-        window.after(SPEED, turn, spaceship, planet)
+        window.after(speed, turn, spaceship, planet)
 
 # ----------------------------------------------------------------------------
 def changeDirection(nextDirection):
@@ -181,6 +161,32 @@ def gameOver():
     restart_button.place(x = center_x - 60, y = center_y + 120)
 
 # ----------------------------------------------------------------------------
+def restartGame():
+    global spaceship, planet, score, speed, direction, restart_button
+
+    # reset game stats
+    score = 0
+    speed = 90
+    label.config(text="{} planets conquered!".format(score))
+    direction = "down"
+
+    # clear canvas
+    canvas.delete(ALL)
+
+    # remove restart button
+    try:
+        restart_button.destroy()
+    except:
+        pass
+
+    # recreate spaceship and planet
+    spaceship = Spaceship()
+    planet = Planet()
+
+    # restart game loop
+    turn(spaceship, planet)
+    
+# ----------------------------------------------------------------------------
 window = Tk()
 
 # CONTROLS 
@@ -195,6 +201,7 @@ window.resizable(False, False)
 
 # initial conditions
 score = 0 
+speed = 90
 direction = "down"
 
 # label on window 
